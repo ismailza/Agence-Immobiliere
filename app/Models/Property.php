@@ -20,6 +20,10 @@ class Property extends Model
         'city',
         'postal_code',
         'price',
-        'sold'
+        'sold',
     ];
+
+    public function options () {
+        return $this->belongsToMany(Option::class);
+    }
 }

@@ -4,7 +4,7 @@
   $name ??= '';
   $value ??= '';  
   $label ??= Str::ucfirst($name);
-  $placeholder ??= $label." bu bien";
+  $placeholder ??= $label;
 @endphp
 
 <div @class(['form-group', $class])>

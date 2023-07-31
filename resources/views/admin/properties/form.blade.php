@@ -21,6 +21,9 @@
       @include('shared.input', ['class'=>'col-md-3','label'=>'Code postal','name'=>'postal_code','value'=> $property->postal_code])
       @include('shared.checkbox', ['class'=>'m-3','name'=>'sold', 'label'=> 'Vendu', 'value' => $property->sold])
       
+      @include('shared.select', ['class'=>'col-md-12', 'name'=> 'options', 'label'=>'Options', 'value' => $property->options()->pluck('id'), 'options'=> $options, 'multiple'=> true])
+      
+
       <div class="d-flex justify-content-center">
         @if (request()->route()->getName() === 'admin.property.edit')
           <button type="submit" class="btn btn-warning m-2">Modifier</button>
