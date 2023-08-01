@@ -47,7 +47,12 @@
     </div>
   </nav>
   <div class="container mt-5">
-    @include('shared.alerts')
+    @if (session('success'))
+      <x-alert>{{ session('success') }}</x-alert>
+    @endif
+    @if (session('error'))
+      <x-alert type="danger">{{ session('error') }}</x-alert>
+    @endif
     @yield('content')
   </div>  
 </body>

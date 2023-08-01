@@ -9,21 +9,18 @@
       @method($property->exists ? 'put' : 'post')
       @csrf
       
-      @include('shared.input', ['class'=>'col-md-6','label'=>'Titre','name'=>'title','value'=> $property->title])
-      @include('shared.input', ['class'=>'col-md-3','name'=>'surface','type'=>'number','value'=> $property->surface])
-      @include('shared.input', ['class'=>'col-md-3','label'=>'Prix','name'=>'price','value'=> $property->price])
-      @include('shared.input', ['type'=>'textarea', 'name'=>'description', 'value'=>$property->description])
-      @include('shared.input', ['class'=>'col-md-3','label'=>'Pièces','name'=>'rooms','type'=>'number','value'=> $property->rooms])
-      @include('shared.input', ['class'=>'col-md-3','label'=>'Chambre','name'=>'bedrooms','type'=>'number','value'=> $property->bedrooms])
-      @include('shared.input', ['class'=>'col-md-3','label'=>'Etage','name'=>'floor','type'=>'number','value'=> $property->floor])
-      @include('shared.input', ['class'=>'col-md-6','label'=>'Adresse','name'=>'address','value'=> $property->address])
-      @include('shared.input', ['class'=>'col-md-3','label'=>'Ville','name'=>'city','value'=> $property->city])
-      @include('shared.input', ['class'=>'col-md-3','label'=>'Code postal','name'=>'postal_code','value'=> $property->postal_code])
-      @include('shared.checkbox', ['class'=>'m-3','name'=>'sold', 'label'=> 'Vendu', 'value' => $property->sold])
-      
-      @include('shared.select', ['class'=>'col-md-12', 'name'=> 'options', 'label'=>'Options', 'value' => $property->options()->pluck('id'), 'options'=> $options, 'multiple'=> true])
-      
-
+      <x-input class="col-md-6" name="title" :value="$property->title" label="Titre" />
+      <x-input class="col-md-3" type="number" name="surface" :value="$property->surface" label="Surface" />
+      <x-input class="col-md-3" name="price" :value="$property->price" label="Prix" />
+      <x-input type="textarea" name="description" :value="$property->description" />
+      <x-input class="col-md-3" type="number" name="rooms" :value="$property->rooms" label="Pièces" />
+      <x-input class="col-md-3" type="number" name="bedrooms" :value="$property->bedrooms" label="Chambres" />
+      <x-input class="col-md-3" type="number" name="floor" :value="$property->floor" label="Etage" />
+      <x-input class="col-md-6" name="address" :value="$property->address" label="Adresse" />
+      <x-input class="col-md-3" name="city" :value="$property->city" label="Ville" />
+      <x-input class="col-md-3" name="postal_code" :value="$property->postal_code" label="Code postal" />
+      <x-checkbox class="m-3" name="sold" label="Vendu" :value="$property->sold" />
+      <x-select class="col-md-12" name="options" :value="$property->options()->pluck('id')" :options="$options" multiple="true" />
       <div class="d-flex justify-content-center">
         @if (request()->route()->getName() === 'admin.property.edit')
           <button type="submit" class="btn btn-warning m-2">Modifier</button>

@@ -9,7 +9,7 @@
       @method($option->exists ? 'put' : 'post')
       @csrf
       
-      @include('shared.input', ['class'=>'col-md-12','label'=>'Nom','name'=>'name','value'=> $option->name])
+      <x-input class="col-md-12" label="Nom" name="name" :value="$option->name" />
       
       <div class="d-flex justify-content-center">
         @if (request()->route()->getName() === 'admin.option.edit')

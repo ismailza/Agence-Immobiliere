@@ -12,18 +12,20 @@
     <hr>
     <div class="mt-4">
       <h4>Intéressé par ce bien?</h4>
-      @include('shared.alerts')
+      @if (session('success'))
+        <x-alert>{{ session('success') }}</x-alert>
+      @endif
       <form class="vstack gap-2" action="{{ route('property.contact', $property) }}" method="post">
         @csrf
         <div class="row">
-          @include('shared.input', ['class'=>'col','label'=>'Prénom','name'=>'firstname'])
-          @include('shared.input', ['class'=>'col','label'=>'NOM','name'=>'lastname'])
+          <x-input class="col" label="Prénom" name="firstname" placeholder="Votre prénom" />
+          <x-input class="col" label="Nom" name="lastname" placeholder="Votre nom" />
         </div>
         <div class="row">
-          @include('shared.input', ['class'=>'col','label'=>'Télephone','name'=>'phone'])
-          @include('shared.input', ['class'=>'col','type'=>'email','label'=>'Email','name'=>'email'])
+          <x-input class="col" label="Télephone" name="phone" placeholder="Votre télephone" />
+          <x-input class="col" type="email" label="Email" name="email" placeholder="Votre email" />
         </div>
-        @include('shared.input', ['class'=>'col','type'=>'textarea','label'=>'Votre message','name'=>'message'])
+        <x-input class="col" type="textarea" label="Votre message" name="message" />
         <div>
           <button class="btn btn-primary">Envoyer</button>
         </div>
