@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PropertyController as ControllersPropertyController;
 use Illuminate\Support\Facades\Route;
@@ -31,8 +33,12 @@ Route::prefix('/biens')->controller(ControllersPropertyController::class)->name(
     ]);
 });
 
+Route::get('/admin/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/admin/login', [AuthController::class, 'authentificate']);
+Route::delete('/admin/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('/admin')->name('admin.')->group(function () {
+Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('/', [AdminHomeController::class, 'index'])->name('index');
     Route::resource('property', PropertyController::class)->except('show');
     Route::resource('option', OptionController::class)->except('show');
 });
