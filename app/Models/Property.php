@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class Property extends Model
 {
@@ -30,5 +32,14 @@ class Property extends Model
 
     public function getSlug () {
         return Str::slug($this->title);
+    }
+
+    public function scopeAvailable (Builder $builder, bool $available = true): Builder {
+        return $builder->where('sold', !$available);
+    }
+
+    public function scopeRecent (Builder $builder): Builder
+    {
+        return $builder->orderBy('created_at', 'desc');
     }
 }

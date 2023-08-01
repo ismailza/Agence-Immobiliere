@@ -26,7 +26,7 @@ class PropertyController extends Controller
             $query = $query->where('title', 'like', "%{$title}%");
         }
         return view('property.index', [
-            'properties' => $query->orderBy('created_at', 'desc')->paginate(16),
+            'properties' => $query->Available()->Recent()->paginate(16),
             'input' => $request->validated()
         ]);
     }

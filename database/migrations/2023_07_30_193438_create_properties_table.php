@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('postal_code');
             $table->string('city');
-            $table->float('price');
+            $table->float('price', 12, 2);
             $table->boolean('sold');
             $table->timestamps();
         });
