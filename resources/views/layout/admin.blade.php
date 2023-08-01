@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title') . Administration</title>
-  <link rel="stylesheet" href="{{ asset('assets/bootstrap') }}/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="{{ asset('assets/tom-select') }}/css/tom-select.bootstrap5.css" />
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
   @php
@@ -50,11 +49,6 @@
   <div class="container mt-5">
     @include('shared.alerts')
     @yield('content')
-  </div>
-  <script src="{{ asset('assets/bootstrap') }}/js/bootstrap.min.js"></script>
-  <script src="{{ asset('assets/bootstrap') }}/js/bootstrap.bundle.min.js"></script>
-  <script src="{{ asset('assets/jquery') }}/jquery-3.7.0.min.js"></script>
-  <script src="{{ asset('assets/tom-select') }}/js/tom-select.complete.min.js"></script>
-  <script src="{{ asset('js') }}/admin.script.js"></script>
+  </div>  
 </body>
 </html>

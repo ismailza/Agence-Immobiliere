@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title')</title>
-  <link rel="stylesheet" href="{{ asset('assets/bootstrap') }}/css/bootstrap.min.css" />
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
   @php
@@ -28,11 +28,6 @@
       </div>
     </div>
   </nav>
-  
   @yield('content')
-
-  <script src="{{ asset('assets/bootstrap') }}/js/bootstrap.min.js"></script>
-  <script src="{{ asset('assets/bootstrap') }}/js/bootstrap.bundle.min.js"></script>
-  <script src="{{ asset('assets/jquery') }}/jquery-3.7.0.min.js"></script>
 </body>
 </html>
