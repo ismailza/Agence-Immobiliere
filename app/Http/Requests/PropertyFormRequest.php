@@ -33,7 +33,7 @@ class PropertyFormRequest extends FormRequest
             'city' => ['required', 'min:4'],
             'price' => ['numeric', 'regex:/^[0-9]+(\.[0-9]{0,3})?$/'],
             'sold' => ['required', 'boolean'],
-            'options' => ['array', 'exists:options,id']
+            'options' => ['array', 'exists:options,id'],
         ];
     }
 }

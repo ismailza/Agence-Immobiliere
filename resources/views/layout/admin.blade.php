@@ -53,6 +53,13 @@
     @if (session('error'))
       <x-alert type="danger">{{ session('error') }}</x-alert>
     @endif
+    @if ($errors->any())
+    <x-alert type="danger">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </x-alert>
+    @endif
     @yield('content')
   </div>  
 </body>

@@ -34,6 +34,10 @@ class Property extends Model
         return Str::slug($this->title);
     }
 
+    public function pictures () {
+        return $this->hasMany(Picture::class);
+    }
+
     public function scopeAvailable (Builder $builder, bool $available = true): Builder {
         return $builder->where('sold', !$available);
     }
@@ -42,4 +46,5 @@ class Property extends Model
     {
         return $builder->orderBy('created_at', 'desc');
     }
+
 }

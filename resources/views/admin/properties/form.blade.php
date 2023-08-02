@@ -21,6 +21,7 @@
       <x-input class="col-md-3" name="postal_code" :value="$property->postal_code" label="Code postal" />
       <x-checkbox class="m-3" name="sold" label="Vendu" :value="$property->sold" />
       <x-select class="col-md-12" name="options" :value="$property->options()->pluck('id')" :options="$options" multiple="true" />
+      <x-input class="col-md-12" name="pictures" label="Images" type="file" multiple/>
       <div class="d-flex justify-content-center">
         @if (request()->route()->getName() === 'admin.property.edit')
           <button type="submit" class="btn btn-warning m-2">Modifier</button>

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PictureFormRequest;
 use App\Http\Requests\PropertyFormRequest;
 use App\Models\Option;
+use App\Models\Picture;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -42,11 +45,14 @@ class PropertyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PropertyFormRequest $request)
+    public function store(PropertyFormRequest $request, PictureFormRequest $pictureRequest)
     {
-        $property = Property::create($request->validated());
+        $propertyData = $request->validated();
+        $pictureData = $pictureRequest->validated('pictures');
+        $property = Property::create($propertyData);
         $property->options()->sync($request->validated('options'));
-        return to_route('admin.property.index')->with('success', "Le bien est ajouté avec succès");
+        $this->processPictures($property, $pictureData);
+        return redirect()->route('admin.property.index')->with('success', "Le bien est ajouté avec succès");
     }
 
     /**
@@ -63,10 +69,13 @@ class PropertyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PropertyFormRequest $request, Property $property)
+    public function update(PropertyFormRequest $request, PictureFormRequest $pictureRequest, Property $property)
     {
-        $property->update($request->validated());
+        $propertyData = $request->validated();
+        $pictureData = $pictureRequest->validated('pictures');
+        $property->update($propertyData);
         $property->options()->sync($request->validated('options'));
+        $this->processPictures($property, $pictureData);
         return to_route('admin.property.index')->with('success', "Le bien est modifié avec succès");
     }
 
@@ -75,7 +84,25 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
+        $pictures = $property->pictures()->get();
+        foreach ($pictures as $picture) {
+            Storage::disk('public')->delete($picture->path);
+        }
         $property->delete();
         return to_route('admin.property.index')->with('success', "Le bien est supprimé avec succès");
     }
+
+    private function processPictures(Property $property, $picturesData)
+    {
+        if ($picturesData) {
+            foreach ($picturesData as $picture) {
+                $picturePath = $picture->store('images/properties', 'public');
+                $property->pictures()->create([
+                    'path' => $picturePath,
+                ]);
+            }
+        }
+    }
+
+
 }
